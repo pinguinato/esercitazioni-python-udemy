@@ -19,12 +19,32 @@ ESERCIZIO 19 - Funzioni con valori di default e return multipli
 
 
 def presentati(nome, saluto="Ciao"):
-    return f"{saluto}, mi chiamo {nome}"
+    print(f"{saluto}, mi chiamo {nome}")
 
 
 def statistiche(numeri):
-    pass
+    somma = 0
+    minimo = numeri[0]
+    massimo = numeri[0]
+
+    for numero in numeri:
+        somma += numero
+        if numero <= minimo:
+            minimo = numero
+        if numero >= massimo:
+            massimo = numero
+
+    media = somma / len(numeri)
+    # costituisci un tupla
+    tupla = (minimo, massimo, somma, media)
+
+    return tupla
+
 
 # test delle funzioni
-print(presentati("Roberto"))
-print(presentati("Roberto", "Buonasera"))
+presentati("Roberto")
+presentati("Roberto", "Buonasera")
+
+print("================================")
+lista_numeri = [10, 25, 3, 47, 12, 8]
+print(statistiche(lista_numeri))
