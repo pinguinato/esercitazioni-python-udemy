@@ -207,19 +207,19 @@ def kg_a_libbre(kg):
 
 def libbre_a_kg(libbre):
     return libbre / 2.20462
-    
+
 
 def grammi_a_once(grammi):
     """ 
         1 grammo = 0.035274 once
     """
     return grammi * 0.035274
-    
+
 
 def once_a_grammi(once):
     return once / 0.035274
-    
-  
+
+
 def celsius_a_fahrenheit(celsius):
     return (celsius * 9/5) + 32
 
@@ -254,6 +254,24 @@ def main():
 
             scelta_lunghezza = chiedi_valore("Scelta: ")
 
+            if scelta_lunghezza == 1:
+                metri = chiedi_valore(
+                    "Inserisci i metri per sapere quanti piedi sono: ")
+                print(f"Metri: {metri} - Piedi: {metri_a_piedi(metri):.2f}")
+            elif scelta_lunghezza == 2:
+                piedi = chiedi_valore(
+                    "Inserisci i piedi per sapere quanti metri sono: ")
+                print(
+                    f"Piedi: {piedi:.2f} - Metri: {piedi_a_metri(piedi):.2f}")
+            elif scelta_lunghezza == 3:
+                km = chiedi_valore("Inserisci i Km per avere le miglia: ")
+                print(
+                    f"Km: {km:.2f} - Miglia: {km_a_miglia(km):.2f}")
+            elif scelta_lunghezza == 4:
+                miglia = chiedi_valore("Inserisci le Miglia per avere i Km: ")
+                print(
+                    f"Miglia: {miglia:.2f} - Km: {miglia_a_km(miglia):.2f}")
+
         elif scelta == 2:
             print("")
             print("--- Peso ---")
@@ -269,6 +287,21 @@ def main():
 
             scelta_peso = chiedi_valore("Scelta: ")
 
+            if scelta_peso == 1:
+                kg = chiedi_valore("inserisci i Kg per avere le Libbre: ")
+                print(f"Kg: {kg:.2f} - Libbre: {kg_a_libbre(kg):.2f}")
+            elif scelta_peso == 2:
+                libbre = chiedi_valore("Inserisci le libbre per avere i kg: ")
+                print(f"Libbre: {libbre:.2f} - Kg: {libbre_a_kg(libbre):.2f}")
+            elif scelta_peso == 3:
+                grammi = chiedi_valore(
+                    "Inserisci i grammi per avere le once: ")
+                print(
+                    f"Grammi: {grammi:.2f} - Once: {grammi_a_once(grammi):.2f}")
+            elif scelta_peso == 4:
+                once = chiedi_valore("Inserisci le once per avere i grammi: ")
+                print(f"Once: {once:.2f} - Grammi: {once_a_grammi(once):.2f}")
+
         elif scelta == 3:
             print("")
             print("--- Temperature ---")
@@ -279,6 +312,15 @@ def main():
             print("")
 
             scelta_temperature = chiedi_valore("Scelta: ")
+
+            if scelta_temperature == 1:
+                celsius = chiedi_valore("Inserisci i gradi Celsius: ")
+                print(
+                    f"Celsius: {celsius:.2f} - Fahrenheit: {celsius_a_fahrenheit(celsius):.2f}")
+            elif scelta_temperature == 2:
+                fahrenheit = chiedi_valore("Inserisci i gradi Fahrenheit: ")
+                print(
+                    f"Fahrenheit: {fahrenheit:.2f} - Celsius: {fahrenheit_a_celsius(fahrenheit):.2f}")
 
         elif scelta == 0:
             print("")
