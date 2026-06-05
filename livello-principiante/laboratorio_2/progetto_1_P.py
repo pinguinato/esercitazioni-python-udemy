@@ -168,15 +168,14 @@ Puoi testarlo con:
     # ... ecc..      
 """
 
+
+from collections import Counter
+
+
 # funzione per aggiungere un contatto
 
 
 def aggiungi_contatto(rubrica, nome, telefono, email=""):
-    """ 
-      Questa funzione aggiunge un contatto nella Rubrica dizionario, se il contatto 
-      esiste gia' ritorna False e stampa un messaggio che il contatto esiste, altrimenti
-      ritorna True e inserisce il contatto correttamente nel dizionario.
-    """
     if nome in rubrica:
         print(f"Il contatto: {nome} e' gia' presente nella Rubrica.")
         return False
@@ -185,25 +184,31 @@ def aggiungi_contatto(rubrica, nome, telefono, email=""):
         return True
 
 
+# stampa il contenuto della rubrica
+def mostra_rubrica(rubrica):
+    print(f"--- Rubrica completa ({len(rubrica)} contatti) ---\n")
+    for chiave, valore in rubrica.items():
+        email = valore.get('email') if valore.get('email') else "(nessuna)"
+        print(f"  {chiave:<15} | Tel: {valore.get('telefono'):<15} | Email: {email}\n")
+
+
 def main():
     print("")
     print("=== RUBRICA TELEFONICA ===")
     print("")
-    # la rubrica e' un dizionario vuoto all'inizio
+    # la rubrica e' un dizionario, vuoto all'inizio
     rubrica = {}
 
     # TODO: quando un contatto viene inserito correttamente bisogna visualizzare -> [1] Contatto 'Mario Rossi' aggiunto con successo! ...
 
     # testing:
-    # risultato = aggiungi_contatto(rubrica, "Roberto Gianotto","1234", "prova@gmail.com")
-    # print(risultato)
-    # print(rubrica)
+    aggiungi_contatto(rubrica, "Roberto Gianotto", "1234", "prova@gmail.com")
+    aggiungi_contatto(rubrica, "Stefania Vicentini",
+                      "123456", "testa@gmail.com")
+    aggiungi_contatto(rubrica, "Sauro Calamari",
+                      "111222333", "calamari@gmail.com")
 
-    # risultato2 = aggiungi_contatto(
-    #     rubrica, "Roberto Gianotto", "123")
-
-    # print(risultato2)
-    # print(rubrica)
+    mostra_rubrica(rubrica)
 
 
 main()
