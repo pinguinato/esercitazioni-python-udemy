@@ -168,13 +168,7 @@ Puoi testarlo con:
     # ... ecc..      
 """
 
-
-from collections import Counter
-
-
 # funzione per aggiungere un contatto
-
-
 def aggiungi_contatto(rubrica, nome, telefono, email=""):
     if nome in rubrica:
         print(f"Il contatto: {nome} e' gia' presente nella Rubrica.")
