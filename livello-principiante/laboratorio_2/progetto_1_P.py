@@ -221,6 +221,22 @@ def elimina_contatto(rubrica, nome):
         return False
 
 
+# cerca un contatto anche parzialmente
+def cerca_contatto(rubrica, termine):
+     pass
+
+
+
+# modifica numero di telefono in rubrica
+def modifica_telefono(rubrica, nome, nuovo_telefono):
+    if nome in rubrica:
+        rubrica[nome]["telefono"] = nuovo_telefono
+        return True
+    else:
+        print(f"Non e' stato possibile modificare il telefono per: {nome}")
+        return False
+
+
 def main():
     print("")
     print("=== RUBRICA TELEFONICA ===")
@@ -262,6 +278,13 @@ def main():
     statistiche(rubrica)
 
     print("")
+
+    modifica_telefono(rubrica, "Stefania Vicentini", "99999888")
+    modifica_telefono(rubrica, "Paperino Visconti", "111222333")
+
+    print("")
+
+    mostra_rubrica(rubrica)
 
 
 # fa partire tutta la baracca
