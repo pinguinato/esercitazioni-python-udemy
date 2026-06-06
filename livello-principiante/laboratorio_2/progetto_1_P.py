@@ -1,4 +1,4 @@
-""" 
+"""
 ============================================
 
     MINI-PROGETTO 1 | LIVELLO: PRINCIPIANTE
@@ -18,7 +18,7 @@ DESCRIZIONE:
         La rubrica è gestita tramite un menu testuale interattivo
 
 
-    NOTA: Per rendere il progetto testabile senza input() interattivo, il programma simulerà le operazioni tramite chiamate a funzioni. 
+    NOTA: Per rendere il progetto testabile senza input() interattivo, il programma simulerà le operazioni tramite chiamate a funzioni.
 
 In fondo al file della soluzione trovi anche la versione con input() commentata.
 
@@ -131,7 +131,7 @@ FUNZIONI DA IMPLEMENTARE:
     6. statistiche(rubrica)
 
        - Stampa il numero totale di contatti, quanti hanno email e quanti no
-       
+
 STRUTTURA DATI:
 
     La rubrica è un DIZIONARIO dove:
@@ -142,7 +142,7 @@ STRUTTURA DATI:
 
     Esempio:
 
-   
+
 
     rubrica = {
             "Mario Rossi": {"telefono": "333-1234567", "email": "mario@email.it"},
@@ -165,7 +165,7 @@ Puoi testarlo con:
     aggiungi_contatto(rubrica, "Mario Rossi", "333-1234567", "mario@email.it")
     aggiungi_contatto(rubrica, "Anna Bianchi", "339-7654321", "anna@email.it")
     mostra_rubrica(rubrica)
-    # ... ecc..      
+    # ... ecc..
 """
 
 # funzione per aggiungere un contatto
@@ -213,21 +213,38 @@ def statistiche(rubrica):
 
 
 def elimina_contatto(rubrica, nome):
-    try:
+    if nome in rubrica:
         rubrica.pop(nome)
+        print(f"Contatto '{nome}' eliminato con successo!")
         return True
-    except:
+    else:
         print(f"L'elemento: {nome} non esiste nella Rubrica.")
         return False
 
 
 # cerca un contatto anche parzialmente
 def cerca_contatto(rubrica, termine):
-     pass
+    # convertiamo il termine cercato in minuscolo
+    termine_cercato_lower = termine.lower()
+    # lista risultante per contenere i risultati
+    risultati = []
 
+    # iteriamo su tutti i contatti
+    for nome, informazioni in rubrica.items():
+        if termine_cercato_lower in nome.lower():
+            contatto_trovato = {
+                "nome": nome,
+                "telefono": informazioni['telefono'],
+                "email": informazioni['email']
+            }
+            risultati.append(contatto_trovato)
 
+    # restituiamo i risultati anche se vuoti (lista)
+    return risultati
 
 # modifica numero di telefono in rubrica
+
+
 def modifica_telefono(rubrica, nome, nuovo_telefono):
     if nome in rubrica:
         rubrica[nome]["telefono"] = nuovo_telefono
@@ -246,16 +263,17 @@ def main():
 
     # testing:
     conta_contatti = 0
-    aggiungi_contatto(rubrica, "Roberto Gianotto", "1234", "prova@gmail.com")
+    aggiungi_contatto(rubrica, "Roberto Gianotto",
+                      "333 112345", "prova@gmail.com")
     conta_contatti += 1
     print(f"[{conta_contatti}] Contatto 'Roberto Gianotto' aggiunto con successo!")
 
     aggiungi_contatto(rubrica, "Stefania Vicentini",
-                      "123456", "testa@gmail.com")
+                      "0141 123456", "test@gmail.com")
     conta_contatti += 1
     print(f"[{conta_contatti}] Contatto 'Stefania Vicentini' aggiunto con successo!")
 
-    aggiungi_contatto(rubrica, "Sauro Calamari", "111222333")
+    aggiungi_contatto(rubrica, "Sauro Calamari", "06 111222333")
     conta_contatti += 1
     print(f"[{conta_contatti}] Contatto 'Sauro Calamari' aggiunto con successo!")
 
@@ -285,6 +303,14 @@ def main():
     print("")
 
     mostra_rubrica(rubrica)
+
+    print("")
+
+    print(cerca_contatto(rubrica, "Stefania Vicentini"))
+    print(cerca_contatto(rubrica, "Roberto Gianotto"))
+    print(cerca_contatto(rubrica, "Olindo R"))
+
+    print("")
 
 
 # fa partire tutta la baracca
