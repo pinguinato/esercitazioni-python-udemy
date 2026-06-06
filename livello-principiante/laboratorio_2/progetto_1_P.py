@@ -169,6 +169,8 @@ Puoi testarlo con:
 """
 
 # funzione per aggiungere un contatto
+
+
 def aggiungi_contatto(rubrica, nome, telefono, email=""):
     if nome in rubrica:
         print(f"Il contatto: {nome} e' gia' presente nella Rubrica.")
@@ -183,7 +185,40 @@ def mostra_rubrica(rubrica):
     print(f"--- Rubrica completa ({len(rubrica)} contatti) ---\n")
     for chiave, valore in rubrica.items():
         email = valore.get('email') if valore.get('email') else "(nessuna)"
-        print(f"  {chiave:<15} | Tel: {valore.get('telefono'):<15} | Email: {email}\n")
+        print(f"  {chiave:<15} | Tel: {valore.get('telefono'):<15} | Email: {email}")
+
+
+def conta_contatti_con_email(rubrica):
+    conta_email = 0
+    for chiave, valore in rubrica.items():
+        # cattoura i contatti che hanno l'email per la stringa vuota e' Falsy
+        if valore.get('email'):
+            conta_email += 1
+
+    return conta_email
+
+# metodo che conta quanti hanno email e quanti no, le statistiche
+
+
+def statistiche(rubrica):
+    # numero totale dei contatti nella rubrica
+    print("Statistiche: ")
+    con_email = conta_contatti_con_email(rubrica)
+    print(f" Contatti totali: {len(rubrica)}")
+    print(f" Con email: {con_email}")
+    print(f" Senza email: {len(rubrica) - con_email}")
+
+
+# elimina un contatto dalla rubrica
+
+
+def elimina_contatto(rubrica, nome):
+    try:
+        rubrica.pop(nome)
+        return True
+    except:
+        print(f"L'elemento: {nome} non esiste nella Rubrica.")
+        return False
 
 
 def main():
@@ -193,16 +228,41 @@ def main():
     # la rubrica e' un dizionario, vuoto all'inizio
     rubrica = {}
 
-    # TODO: quando un contatto viene inserito correttamente bisogna visualizzare -> [1] Contatto 'Mario Rossi' aggiunto con successo! ...
-
     # testing:
+    conta_contatti = 0
     aggiungi_contatto(rubrica, "Roberto Gianotto", "1234", "prova@gmail.com")
+    conta_contatti += 1
+    print(f"[{conta_contatti}] Contatto 'Roberto Gianotto' aggiunto con successo!")
+
     aggiungi_contatto(rubrica, "Stefania Vicentini",
                       "123456", "testa@gmail.com")
-    aggiungi_contatto(rubrica, "Sauro Calamari",
-                      "111222333", "calamari@gmail.com")
+    conta_contatti += 1
+    print(f"[{conta_contatti}] Contatto 'Stefania Vicentini' aggiunto con successo!")
+
+    aggiungi_contatto(rubrica, "Sauro Calamari", "111222333")
+    conta_contatti += 1
+    print(f"[{conta_contatti}] Contatto 'Sauro Calamari' aggiunto con successo!")
+
+    print("")
 
     mostra_rubrica(rubrica)
 
+    print("")
 
+    elimina_contatto(rubrica, "Sauro Calamari")
+    elimina_contatto(rubrica, "Pluto")
+    elimina_contatto(rubrica, "Vladimir Putin")
+
+    print("")
+
+    mostra_rubrica(rubrica)
+
+    print("")
+
+    statistiche(rubrica)
+
+    print("")
+
+
+# fa partire tutta la baracca
 main()
