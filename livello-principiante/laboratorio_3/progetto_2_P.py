@@ -74,23 +74,75 @@ def intestazione():
 
 def valutazione(percentuale):
     if percentuale >= 90:
-        print("Eccellente!")
+        return "Eccellente!"
     elif percentuale < 90 and percentuale >= 70:
-        print("Ottimo!")
+        return "Ottimo!"
     elif percentuale < 70 and percentuale >= 50:
-        print("Sufficiente")
+        return "Sufficiente"
     else:
-        print("Da ripassare...")
+        return "Da ripassare..."
+
+
+def calcola_risultati(lista_domande, risposte_utente, punti_per_domanda=20):
+    risultati = {
+        "corrette": 0,
+        "totale": totale_domande(lista_domande),
+        "punteggio": 0,
+        "punteggio_max": punti_per_domanda * totale_domande(lista_domande),
+        "percentuale": 0
+    }
+    totale_punteggio_utente = 0
+    corrette = 0
+
+    for domanda, risposta in zip(lista_domande, risposte_utente):
+        risposta_utente_tradotta = ord(risposta) - ord("a")
+        # print(f"Risposta corretta: {domanda["corretta"]}, Risposta utente: {risposta_utente_tradotta}")
+        if domanda["corretta"] == risposta_utente_tradotta:
+            totale_punteggio_utente = totale_punteggio_utente + punti_per_domanda
+            corrette = corrette + 1
+
+    # memorizzo e aggiorno il valore delle risposte corrette
+    risultati["corrette"] = corrette
+    # memorizzo e aggiorno il punteggio totale ottenuto dall'utente
+    risultati["punteggio"] = totale_punteggio_utente
+    # memorizzo e aggiorno il valore della percentuale
+    risultati["percentuale"] = (corrette / risultati["totale"]) * 100
+
+    return risultati
+
+
+def mostra_risultati(risultati):
+    print(50 * "=")
+    print("")
+    print("   RISULTATI FINALI")
+    print("")
+    print(50 * "=")
+    print("")
+    print(f"Risposte corrette: {risultati["corrette"]}/{risultati["totale"]}")
+    print(f"Punteggio: {risultati["punteggio"]}/{risultati["punteggio_max"]}")
+    print(f"Percentuale: {risultati["percentuale"]}%")
+    print(f"Valutazione: {valutazione(risultati["percentuale"])}")
 
 
 def main():
     lista_domande = crea_domande()
+    risultati = {}
     intestazione()
     # elenco domande
     mostra_domanda(domande[0], 1, totale_domande(lista_domande))
     verifica_risposta(domande[0], "c")
-
-    print(risposte_alle_domande)
+    mostra_domanda(domande[1], 2, totale_domande(lista_domande))
+    verifica_risposta(domande[1], "a")
+    mostra_domanda(domande[2], 3, totale_domande(lista_domande))
+    verifica_risposta(domande[2], "b")
+    mostra_domanda(domande[3], 4, totale_domande(lista_domande))
+    verifica_risposta(domande[3], "c")
+    mostra_domanda(domande[4], 5, totale_domande(lista_domande))
+    verifica_risposta(domande[4], "b")
+    risultati = calcola_risultati(lista_domande, risposte_alle_domande, 20)
+    print("")
+    mostra_risultati(risultati)
+    print("")
 
 
 main()
