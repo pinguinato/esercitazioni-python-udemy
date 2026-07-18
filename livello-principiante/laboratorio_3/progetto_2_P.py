@@ -28,6 +28,8 @@ domande = [
     }
 ]
 
+risposte_alle_domande = []
+
 
 def crea_domande():
     lista_domande = domande
@@ -39,19 +41,29 @@ def totale_domande(lista):
 
 
 def mostra_domanda(domanda, numero, totale):
-    # TODO: dobbiamo capire come ricavare il numero corretto della domanda
     print(f"Domanda {numero}/{totale}: {domanda["testo"]}")
     # stampa le possibilli risposte alla domanda
     for i, opzione in enumerate(domanda["opzioni"]):
         lettera = chr(i + ord("a"))
+        print("")
         print(f"  {lettera}) {opzione}")
 
 
 def verifica_risposta(domanda, risposta_utente):
-    pass
+    print(f"Risposta: {risposta_utente}")
+    risposte_alle_domande.append(risposta_utente)
+    indice_numerico_della_risposta = ord(risposta_utente.lower()) - ord("a")
+    lettera_risposta_corretta = chr(domanda["corretta"] + ord("a"))
+    if indice_numerico_della_risposta == domanda["corretta"]:
+        print("✓ Corretto! +10 punti.")
+        return True
+    else:
+        print(
+            f"✗ Sbagliato! La risposta corretta era: {lettera_risposta_corretta}) {domanda["opzioni"][domanda["corretta"]]}")
+        return False
 
 
-def main():
+def intestazione():
     print(50 * "=")
     print("")
     print("   QUIZ DI PYTHON - 5 domande")
@@ -59,17 +71,26 @@ def main():
     print(50 * "=")
     print("")
 
-    # qui dentro ho la lista di dizionari delle 5 domande
+
+def valutazione(percentuale):
+    if percentuale >= 90:
+        print("Eccellente!")
+    elif percentuale < 90 and percentuale >= 70:
+        print("Ottimo!")
+    elif percentuale < 70 and percentuale >= 50:
+        print("Sufficiente")
+    else:
+        print("Da ripassare...")
+
+
+def main():
     lista_domande = crea_domande()
+    intestazione()
+    # elenco domande
+    mostra_domanda(domande[0], 1, totale_domande(lista_domande))
+    verifica_risposta(domande[0], "c")
 
-    # print(lista_domande)
-
-    # stampa a video della domanda
-    # mostra_domanda(domanda, 1, totale_domande(lista_domande))
-    # mostra_domanda(domanda_2, 2, totale_domande(lista_domande))
-    # mostra_domanda(domanda_3, 3, totale_domande(lista_domande))
-    # mostra_domanda(domanda_4, 4, totale_domande(lista_domande))
-    # mostra_domanda(domanda_5, 5, totale_domande(lista_domande))
+    print(risposte_alle_domande)
 
 
 main()
