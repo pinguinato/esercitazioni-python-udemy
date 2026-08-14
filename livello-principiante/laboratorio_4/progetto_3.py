@@ -164,11 +164,42 @@ SUGGERIMENTI:
 
 import random as r
 
+FACILE = 1
+MEDIO = 2
+DIFFICILE = 3
+
+def titolo_gioco():
+   # titolo iniziale del gioco
+   print(50 * "=")
+   print("")
+   print("  INDOVINA IL NUMERO")
+   print(50 * "=")
+   print("")
+   print("")
+   # scegli la difficolta'
+   print("Scegli la difficolta':\n")
+   print("\t1. Facile    (1-20,  max 8 tentativi)")
+   print("\t2. Medio     (1-50,  max 10 tentativi)")
+   print("\t3. Difficile (1-100, max 15 tentativi)\n")
+
+
+def scegli_difficolta():
+   scelta = int(input("Scelta: "))
+   if scelta == FACILE:
+      return 20,8
+   elif scelta == MEDIO:
+      return 50,10
+   elif scelta == DIFFICILE:
+      return 100,15   
 
 
 def genera_numero(limite):     
    # ritorna il calcolo della funzione random su interi conpresi da 1 a 20 (limite)
-   return r.randint(1, limite)
+   if limite <= 0 or limite > 100:
+      print("Non posso generare un numero randon con valori <= 0.")
+      return None
+   else:
+      return r.randint(1, limite)
    
 
 
@@ -179,7 +210,9 @@ def genera_numero(limite):
 ##########
 
 def main():
-   print(f"Test: {genera_numero(20)}")
-      
+   #print(f"Test: {genera_numero(20)}")
+   titolo_gioco()
+   
+   print(f"Hai scelto {scegli_difficolta()}")   
    
 main()
