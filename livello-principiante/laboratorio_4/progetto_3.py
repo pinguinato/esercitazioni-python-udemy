@@ -184,13 +184,22 @@ def titolo_gioco():
 
 
 def scegli_difficolta():
-   scelta = int(input("Scelta: "))
-   if scelta == FACILE:
-      return 20,8
-   elif scelta == MEDIO:
-      return 50,10
-   elif scelta == DIFFICILE:
-      return 100,15   
+   try:
+      scelta = int(input("Scelta: "))
+      if scelta == FACILE:
+         return (20,8)
+      elif scelta == MEDIO:
+         return (50,10)
+      elif scelta == DIFFICILE:
+         return (100,15)
+      else:
+         print("Valore numerico non ammesso.")
+         return None
+   except ValueError:
+      print("Non puoi inserire valori letterali, solo numeri interi da 1 a 3")
+      return None
+   
+      
 
 
 def genera_numero(limite):     
@@ -212,7 +221,7 @@ def genera_numero(limite):
 def main():
    #print(f"Test: {genera_numero(20)}")
    titolo_gioco()
-   
-   print(f"Hai scelto {scegli_difficolta()}")   
+   tupla_scelta = scegli_difficolta()
+   print(f"Hai scelto {tupla_scelta}")   
    
 main()
