@@ -177,14 +177,15 @@ def titolo_gioco():
    print(50 * "=")
    print("")
    print("")
+   
+
+def scegli_difficolta():
    # scegli la difficolta'
    print("Scegli la difficolta':\n")
    print("\t1. Facile    (1-20,  max 8 tentativi)")
    print("\t2. Medio     (1-50,  max 10 tentativi)")
    print("\t3. Difficile (1-100, max 15 tentativi)\n")
-
-
-def scegli_difficolta():
+   
    try:
       scelta = int(input("Scelta: "))
       if scelta == FACILE:
@@ -225,7 +226,7 @@ def chiedi_tentativo(minimo, massimo):
 
 def gioca_partita(numero_partita, massimo_numero_tentativi, numero_pensato_computer):
    # realizza il sistema dei tentativi 
-   while numero_partita < massimo_numero_tentativi:
+   while numero_partita <= massimo_numero_tentativi:
       print(f"Tentativo {numero_partita}/{massimo_numero_tentativi} - ")
       # validazione del tentativo
       tentativo = 0
@@ -237,8 +238,6 @@ def gioca_partita(numero_partita, massimo_numero_tentativi, numero_pensato_compu
          tentativo = chiedi_tentativo(1,100)
       risultato_tentativo = dai_suggerimento(tentativo, numero_pensato_computer) 
       
-      numero_partita = numero_partita + 1
-      
       if numero_partita == massimo_numero_tentativi:
          print("Hai perso!")
          return -1
@@ -246,6 +245,8 @@ def gioca_partita(numero_partita, massimo_numero_tentativi, numero_pensato_compu
          tentativi_totali = numero_partita - 1
          print(f"Hai vinto in {tentativi_totali} tentativi")
          return tentativi_totali
+      # incrementa il numero della partita      
+      numero_partita = numero_partita + 1
 
 
 def dai_suggerimento(tentativo, numero_segreto):
@@ -264,28 +265,34 @@ def dai_suggerimento(tentativo, numero_segreto):
 def main():
    titolo_gioco() # titoli di gioco
    
-   tupla_scelta = scegli_difficolta()
-   # dentro tupla_scelta arriva una tupla (massimo intero da indovinare, numero massimo dei tentativi)
-   massimo_numero_input = tupla_scelta[0] # può essere anche il limite
-   massimo_numero_tentativi = tupla_scelta[1] # qui mi arriva una tupla che definisce il tipo di partita
-   numero_partita = 1 # prima partita
-   numero_pensato_computer = genera_numero(massimo_numero_input)
    
-   if (massimo_numero_input == 20 and massimo_numero_tentativi == 8):
-      print(f"--- Partita {numero_partita} (Facile: 1-20) ---")   
-      #print(f"Numero pensato dal computer: {numero_pensato_computer}")
-      print("Ho pensato un numero tra 1 e 20. Hai 8 tentativi!")
-      gioca_partita(numero_partita, massimo_numero_tentativi, numero_pensato_computer)
-   elif (massimo_numero_input == 50 and massimo_numero_tentativi == 10):
-      print(f"--- Partita {numero_partita} (Medio: 1-50) ---")
-      #print(f"Numero pensato dal computer: {numero_pensato_computer}")
-      print("Ho pensato un numero tra 1 e 50. Hai 10 tentativi!")
-      gioca_partita(numero_partita, massimo_numero_tentativi, numero_pensato_computer)
-   elif (massimo_numero_input == 100 and massimo_numero_tentativi == 15):
-      print(f"--- Partita {numero_partita} (Difficile: 1-100) ---")
-      #print(f"Numero pensato dal computer: {numero_pensato_computer}")
-      print("Ho pensato un numero tra 1 e 100. Hai 15 tentativi!")
-      gioca_partita(numero_partita, massimo_numero_tentativi, numero_pensato_computer)
+   while(True):
    
+      tupla_scelta = scegli_difficolta()
+      # dentro tupla_scelta arriva una tupla (massimo intero da indovinare, numero massimo dei tentativi)
+      massimo_numero_input = tupla_scelta[0] # può essere anche il limite
+      massimo_numero_tentativi = tupla_scelta[1] # qui mi arriva una tupla che definisce il tipo di partita   
+      numero_partita = 1 # prima partita
+      numero_pensato_computer = genera_numero(massimo_numero_input)
+   
+      if (massimo_numero_input == 20 and massimo_numero_tentativi == 8):
+         print(f"--- Partita {numero_partita} (Facile: 1-20) ---")   
+         #print(f"Numero pensato dal computer: {numero_pensato_computer}")
+         print("Ho pensato un numero tra 1 e 20. Hai 8 tentativi!")
+         gioca_partita(numero_partita, massimo_numero_tentativi, numero_pensato_computer)
+      elif (massimo_numero_input == 50 and massimo_numero_tentativi == 10):
+         print(f"--- Partita {numero_partita} (Medio: 1-50) ---")
+         #print(f"Numero pensato dal computer: {numero_pensato_computer}")
+         print("Ho pensato un numero tra 1 e 50. Hai 10 tentativi!")
+         gioca_partita(numero_partita, massimo_numero_tentativi, numero_pensato_computer)
+      elif (massimo_numero_input == 100 and massimo_numero_tentativi == 15):
+         print(f"--- Partita {numero_partita} (Difficile: 1-100) ---")
+         #print(f"Numero pensato dal computer: {numero_pensato_computer}")
+         print("Ho pensato un numero tra 1 e 100. Hai 15 tentativi!")
+         gioca_partita(numero_partita, massimo_numero_tentativi, numero_pensato_computer)
+         
+      # TODO: qui mettiamo il metodo per stampare le statistiche
+      numero_partita = numero_partita + 1 
+         
    
 main()
